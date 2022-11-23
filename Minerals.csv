@@ -1,0 +1,67 @@
+target,group_name,Material Number,MaterialID,Output Name,tetracorder_file,Spectral Library file,Chapter,Library Spectrum TITLE,Library
+Alunite,group.2um,139,,sulfate K-alunite (Na03) GDS84 high temp,sulfate_alunNa03,sl1/usgs/library06/ASCII/M/alunite_gds84.1187.asc,M,Alunite GDS84 Na03           W2R4Na,splib06
+Alunite,group.2um,140,,sulfate alunite syn Na56% RES10 (450C),sulfate_alunNa56450c,sl1/usgs/library06/ASCII/M/alunite_res10.1624.asc,M,Alunite RES10 NA56% Syn 450C W2R4Na,splib06
+Alunite,group.2um,141,,sulfate alunite syn Na78% RES12 (450C),sulfate_alunNa78.450c,sl1/usgs/library06/ASCII/M/alunite_res12.1663.asc,M,Alunite RES12 NA78% Syn 450C W2R4NaIS,splib06
+Alunite,group.2um,129,,sulfate K-alunite 150C,sulfate_kalun150c,sl1/usgs/library06/ASCII/M/alunite_gds97.1347.asc,M,Alunite GDS97 K  Syn (150C)  W2R4Na,splib06
+Alunite,group.2um,130,,sulfate K-alunite GDS96 250C,sulfate_kalun250c,sl1/usgs/library06/ASCII/M/alunite_gds96.1308.asc,M,Alunite GDS96 K  Syn (250C)  W2R4Na,splib06
+Alunite,group.2um,131,,sulfate K-alunite RES-2 450C,sulfate_kalun450c,sl1/usgs/library06/ASCII/M/alunite_res2.1468.asc,M,Alunite RES-2 K Syn (450C)   W2R4Na,splib06
+Alunite,group.2um,138,,sulfate alunite RES-9 Summitv 400C,sulfate_na40alun400c,sl1/usgs/library06/ASCII/M/alunite_res9.1585.asc,M,Alunite RES-9 Summitv (400C) W2R4Nb,splib06
+Alunite,group.2um,137,,sulfate alunite GDS83 Na63,sulfate_na63alun300c,sl1/usgs/library06/ASCII/M/alunite_gds83.1079.asc,M,Alunite GDS83 Na63           W1R1Bb,splib06
+Alunite,group.2um,135,,sulfate alunite GDS82 Na82 low temp,sulfate_na82alun100c,sl1/usgs/library06/ASCII/M/alunite_gds82.1063.asc,M,Alunite GDS82 Na82  ,splib06
+Alunite,group.2um,132,,sulfate Na-alunite GDS95 150C,sulfate_naalun150c,sl1/usgs/library06/ASCII/M/alunite_gds95.1269.asc,M,Alunite GDS95 Na Syn (150C),splib06
+Alunite,group.2um,133,,sulfate Na-alunite RES-4 300C,sulfate_naalun300c,sl1/usgs/library06/ASCII/M/alunite_res4.1546.asc,M,Alunite RES-4 Na Syn (300C),splib06
+Alunite,group.2um,134,,sulfate Na-alunite RES-3 450C,sulfate_naalun450c,sl1/usgs/library06/ASCII/M/alunite_res3.1507.asc,M,Alunite RES-3 Na Syn (450C)  W2R4Na,splib06
+Buddingtonite,group.2um,137,,feldspar buddingtonite GDS85 D-206,feldspar_buddingtonite_ammonium,sl1/usgs/library06/ASCII/M/buddingtonite_gds85.3924.asc,M,Buddingtonite GDS85 D-206    W1R1Bb,splib06
+Calcite,group.2um,233,,carbonate calcite 2.5u WS272,carbonate_calcite,sl1/usgs/library06/ASCII/M/calcite_ws272.4159.asc,M,Calcite WS272                W1R1Ha,splib06
+Chlorite,group.2um,208,,chlorite SMR-13.b,chlorite,sl1/usgs/library06/ASCII/M/chlorite_smr13.4908.asc,M,Chlorite SMR-13.b 60-104um   W1R1Ba,splib06
+Chlorite,group.2um,,,chlorite clinochlore GDS158,chlorite_clinochlore,sl1/usgs/library06/ASCII/M/clinochlore_gds158.5327.asc,M,Clinochlore GDS158 Flagst    W1R1Hb,splib06
+Chlorite,group.2um,,,chlorite clinochlore GDS157,chlorite_clinochlore.fe.gds157,sl1/usgs/library06/ASCII/M/clinochlore_gds157.5542.asc,M,Clinochlore_Fe GDS157.b,splib06
+Chlorite,group.2um,,,chlorite clinochlore Fe SC-CCa-1.b,chlorite_clinochlore.fe.sc-cca-1,sl1/usgs/library06/ASCII/M/clinochlore_sc-cca-1.5725.asc,M,Clinochlore_Fe SC-CCa-1.b =aa_,splib06
+Chlorite,group.2um,,,chlorite clinochlore NMNH83369,chlorite_clinochlore.nmnh83369,sl1/usgs/library06/ASCII/M/clinochlore_nmnh83369.5457.asc,M,Clinochlore NMNH83369,splib06
+Chlorite,group.2um,,,chlorite Cookeite CAr-1.a 104-150um =bb_,chlorite_cookeite-car-1.a,sl1/usgs/library06/ASCII/M/cookeite_car1.6074.asc,M,Cookeite CAr-1.a 104-150um =bb_,splib06
+Chlorite,group.2um,,,chlorite Cookeite CAr-1.c <30um =cc_,chlorite_cookeite-car-1.c,sl1/usgs/library06/ASCII/M/cookeite_car1.6228.asc,M,Cookeite CAr-1.c <30um =cc_,splib06
+Chlorite,group.2um,,,chlorite thuringite SMR-15.b,chlorite_thuringite,sl1/usgs/library06/ASCII/M/thuringite_smr15.21810.asc,M,Thuringite SMR-15.b  32um    W1R1Ba,splib06
+Dickite,group.2um,,,kaolingroup dickite NMNH106242,kaolgrp_dickite,sl1/usgs/library06/ASCII/M/dickite_nmnh106242.6820.asc,M,Dickite NMNH106242           W1R1Bb,splib06
+Dolomite,group.2um,,,carbonate dolomite 2.5u HS102.3B,carbonate_dolomite,sl1/usgs/library06/ASCII/M/dolomite_hs102.7116.asc,M,Dolomite HS102.3B s06crj3a=bbb ,splib06
+Epidote,group.1um,,epidote.gds26.a.g1,epidote GDS26.a,epidote,sl1/usgs/library06/ASCII/M/epidote_gds26.7546.asc,M,Epidote GDS26.a 75-200um     W1R1Bb,splib06
+Epidote,group.2um,,epidote.gds26.a.g2,epidote GDS26.a,epidote,sl1/usgs/library06/ASCII/M/epidote_gds26.7546.asc,M,Epidote GDS26.a 75-200um     W1R1Bb,splib06
+Epidote,group.1um,,,"Fe2+ generic, ref= BR33a bio qtz monz. hv epidot vn",fe2+generic_br33a_bioqtzmonz_epidote,sl1/usgs/library06/ASCII/M/epidote_br93-33a.7490.asc,M,Epidote BR93-33a             W1R1Bb AREF,splib06
+Goethite,group.1um,,,Fe3+ goethite coarse gr. WS222,fe3+_goethite.coarsegr,sl1/usgs/library06/ASCII/M/goethite_ws222.8459.asc,M,Goethite WS222 coarse grain  W1R1H_ ,splib06
+Goethite,group.1um,,,Fe3+ geothite fine gr MPCMA2-B,fe3+_goethite.fingr,sl1/usgs/library06/ASCII/M/goethite_mpcma2b.8351.asc,M,Goethite MPCMA2-B FineGr adj W1R1Bb,splib06
+Goethite,group.1um,,,Fe3+ goethite lepidocrosite GDS80,fe3+_goethite.lepidocrosite,sl1/usgs/library06/ASCII/M/lepidochros_gds80.12600.asc,M,Lepidocrosite GDS80 (Syn)    W1R1Hb,splib06
+Goethite,group.1um,,,Fe3+ goethite m-crs gr MPCMA2-C trjar,fe3+_goethite.medcoarsegr.mpc.trjar,sl1/usgs/library06/ASCII/M/goethite_mpcma2c.8365.asc,M,Goethite MPCMA2-C M-Crsgrad2 W1R1Hb AREF,splib06
+Goethite,group.1um,,,Fe3+ goethite med grain WS222,fe3+_goethite.medgr.ws222,sl1/usgs/library06/ASCII/M/goethite_ws222.8447.asc,M,Goethite WS222 <250um MedGrn W1R1H_ AREF,splib06
+Halloysite,group.2um,,,kaolingroup halloysite NMNH106237,kaolgrp_halloysite,sl1/usgs/library06/ASCII/M/halloysite_nmnh106237.8999.asc,M,Halloysite NMNH106237        W1R1Ha,splib06
+Hematite,group.1um,,,Fe3+ hematite FE2602,fe3+_hematite.fine.gr.fe2602,sl1/usgs/library06/ASCII/M/hematite_fe2602.9271.asc,M,Hematite FE2602              W1R1Bb,splib06
+Hematite,group.1um,,,Fe3+ hematite WS161,fe3+_hematite.fine.gr.ws161,sl1/usgs/library06/ASCII/M/hematite_ws161.9776.asc,M,Hematite WS161               W1R1Hb,splib06
+Hematite,group.1um,,,Fe3+ hematite GDS27 med grained,fe3+_hematite.med.gr.gds27,sl1/usgs/library06/ASCII/M/hematite_gds27.9282.asc,M,Hematite GDS27               W1R1Ha,splib06
+Hematite,group.1um,,,Fe3+ nanohematite  BR34B2,fe3+_hematite.nano.BR34b2,sl1/usgs/library06/ASCII/M/nanohematite_br93-34b2.15589.asc,M,Nanohematite BR93-34B2       W1R1BbS,splib06
+Hematite,group.1um,,,Fe3+ nanohematite  BR34B2b,fe3+_hematite.nano.BR34b2b,research library,,Nanohematite FBR93-34B2b ed1 W1R1Hb,sprlb06
+Hematite,group.1um,,,Fe3+ maghemite GDS81 Sy (M-3),fe3+_maghemite,sl1/usgs/library06/ASCII/M/maghemite_gds81.13124.asc,M,Maghemite GDS81 Syn (M-3)    W1R1Bb,splib06
+Illite,group.2um,,,micagroup illite IMt-1.b <2um,micagrp_illite,sl1/usgs/library06/ASCII/M/illite_imt1.11041.asc,M,Illite IMt-1.b <2um          W1R1BaS,splib06
+Illite,group.2um,,,micagroup illite GDS4 (Marblehead),micagrp_illite.gds4,sl1/usgs/library06/ASCII/M/illite_gds4.10903.asc,M,Illite GDS4.2 Marblehead_WI  W1R1H_,splib06
+Illite,group.2um,,,micagroup roscoelite EN124,micagrp_illite.roscoelite,sl1/usgs/library06/ASCII/M/roscoelite_en124.19682.asc,M,Roscoelite EN124             W1R1Bb,splib06
+Illite,group.2um,,,smectite ammonio-illite/smectite GDS87,smectite_ammonillsmec,sl1/usgs/library06/ASCII/M/ammoniumillsmec_gds87.1757.asc,M,Ammonio-Illite/Smectit GDS87 W1R1Hb,splib06
+Jarosite,group.2um,,,sulfate ammonio jarosite SCR-NHJ,sulfate_ammonjarosite,sl1/usgs/library06/ASCII/M/amojarosite_scrnhj.1851.asc,M,Ammonio-Jarosite SCR-NHJ     W1R1Ba,splib06
+Jarosite,group.2um,,,"sulfate jarosite GDS99 K,Sy 200C",sulfate_jarosite-K,sl1/usgs/library06/ASCII/M/jarosite_gds99.11469.asc,M,Jarosite GDS99 K 200C Syn    W1R1Ba,splib06
+Jarosite,group.2um,,,"sulfate jarosite SJ-1 H3O,10-20%",sulfate_jarosite-lowT,sl1/usgs/library06/ASCII/M/jarosite_sj1.11629.asc,M,"Jarosite SJ-1 H3O,10-20%     W1R1Bb",splib06
+Jarosite,group.2um,,,sulfate jarosite GDS24 Na,sulfate_jarosite-Na,sl1/usgs/library06/ASCII/M/jarosite_gds24.11320.asc,M,Jarosite GDS24 Na            W1R1Bb,splib06
+Kaolinite,group.2um,,,kaolingroup kaolinite KGa-2 pxl ,kaolgrp_kaolinite_pxl,sl1/usgs/library06/ASCII/M/kaolinite_kga2.12190.asc,M,Kaolinite KGa-2 (pxl)        W1R1Hb,splib06
+Kaolinite,group.2um,,,kaolingroup kaolinite CM9 wxl,kaolgrp_kaolinite_wxl,sl1/usgs/library06/ASCII/M/kaolinite_cm9.11962.asc,M,Kaolinite CM9 (wxl)          W1R1Hb,splib06
+Montmorillonite,group.2um,,,"organic, montmor SWy + benzene (1ml)",organic_benzene+montswy,sl1/usgs/library06/ASCII/A/montmorillonite_benzene.28220.asc,A,Montmorill+Benzene SWy 1ml   W1R1Ba,splib06
+Montmorillonite,group.2um,,,"organic, montmor SWy + TCE saturated",organic_tce+montswy,sl1/usgs/library06/ASCII/A/montmorillonite_tce.28232.asc,A,Montmorill+TCE SWy saturated W1R1Ba,splib06
+Montmorillonite,group.2um,,,"organic, montmor SWy + toluene .5ml",organic_toluene+montswy,sl1/usgs/library06/ASCII/A/montmorillonite_toluene.28244.asc,A,Montmorill+Toluene SWy .5ml  W1R1Ba,splib06
+Montmorillonite,group.2um,,,"organic, montmor SWy + trichlor (1ml)",organic_trichlor+montswy,sl1/usgs/library06/ASCII/A/montmorillonite_trichlor.28256.asc,A,Montmorill+Trichlor SWy 1ml  W1R1Ba,splib06
+Montmorillonite,group.2um,,,"organic, montmor SWy + unleaded gas",organic_unleaded.gas+montswy,sl1/usgs/library06/ASCII/A/montmorillonite_unleaded_gas.28268.asc,A,Montmorill+Unleaded_Gas SWy  W1R1Ba,splib06
+Montmorillonite,group.2um,,,smectite montmorillonite SAz-1 (Ca) swelling,smectite_montmorillonite_ca_swelling,research library,,Montmorillonite SAz-1        W1R1Hb,sprlb06
+Montmorillonite,group.2um,,,smectite montmorillonite Fe GDS759A,smectite_montmorillonite_fe_swelling,research library,,Montmorillonite_Fe GDS759A,sprlb06
+Montmorillonite,group.2um,,,smectite montmorillonite SWy-1 highswelling,smectite_montmorillonite_na_highswelling,sl1/usgs/library06/ASCII/M/montmorillonite_swy1.14688.asc,M,Montmorillonite SWy-1        W1R1Hb,splib06
+Muscovite,group.2um,,,micagroup muscovite low-Al  CU93-1,micagrp_muscovite-low-Al,sl1/usgs/library06/ASCII/M/muscovite_cu93-1.14848.asc,M,Muscovite CU93-1 low-Al Phyl W2R4Nb,splib06
+Muscovite,group.2um,,,micagroup muscovite medhigh Al GDS113 Ruby,micagrp_muscovite-medhigh-Al,sl1/usgs/library06/ASCII/M/muscovite_gds113.15059.asc,M,Muscovite GDS113 Ruby        W1R1Bb,splib06
+Muscovite,group.2um,,,micagroup muscovite Fe rich GDS116 Tanzania,micagrp_muscoviteFerich,sl1/usgs/library06/ASCII/M/muscovite_gds116.15173.asc,M,Muscovite GDS116 Tanzania    W1R1Ba,splib06
+Muscovite,group.2um,,,prehnite + muscovite,prehnite+muscovite,sl1/usgs/library06/ASCII/M/mizzonite_bm931-12.14023.asc,M,"Mizzonite BM1931,12 Scapolte W1R1Bc",splib06
+Nontronite,group.1um,,,Fe3+ smectite nontronite NG-1.a,fe3+_smectite_nontronite,sl1/usgs/library06/ASCII/M/nontronite_ng1.15991.asc,M,Nontronite NG-1.a            W1R1Bb,splib06
+Nontronite,group.2um,,,smectite nontronite NG-1.a,smectite_nontronite_swelling,sl1/usgs/library06/ASCII/M/nontronite_ng1.15991.asc,M,Nontronite NG-1.a            W1R1Bb,splib06
+Pyrite,group.1um,,,sulfide weathered pyrite LV95-6A,sulfide_pyrite,sl1/usgs/library06/ASCII/S/pyrite_lv95-6a.26297.asc,S,Pyrite LV95-6A Weath on Tail W1R1Bb,splib06
+Pyrite,group.1um,,,sulfate copper chalcopyrite HS431.3B,sulfide_copper_chalcopyrite,sl1/usgs/library06/ASCII/M/pyrite_s29-4.18629.asc,M,Chalcopyrite HS431.3B        W1R1Bb,splib06
+Pyrophyllite,group.2um,,,pyrophyllite PYS1A fine g,pyrophyllite,sl1/usgs/library06/ASCII/M/pyrophyllite_pys1a.18885.asc,M,Pyrophyllite PYS1A fine gr   W1R1Ba,splib06
