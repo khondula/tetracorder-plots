@@ -125,53 +125,51 @@ mixture_ems_alunite <- mixtures_df %>% dplyr::filter(Dominant_Mineral == 'Alunit
 justmineral_ems_alunite <- minerals_df %>% dplyr::filter(target == 'Alunite', group_name == 'group.2um') %>% dplyr::pull(tetracorder_file)
 minmix_ems_alunite <- unique(c(justmineral_ems_alunite, mixture_ems_alunite))
 
-em_fits_alunite <- glue('{tet_out_dir}/01_tetfits/group2um/{minmix_ems_alunite}.fit.gz')
-em_rast_alunite <- terra::rast(em_fits_alunite)
-em_rast_alunite_na <- terra::subst(em_rast_alunite, 0, NA)
-em_rast_alunite_na <- crop_n_drop(em_rast_alunite_na, my_ext)
-em_mineral_max_alunite <- terra::app(em_rast_alunite_na, which.max, na.rm = TRUE)
+em_fits_aluniteMIX <- glue('{tet_out_dir}/01_tetfits/group2um/{minmix_ems_alunite}.fit.gz')
+em_rast_aluniteMIX <- terra::rast(em_fits_aluniteMIX)
+em_rast_aluniteMIX_na <- terra::subst(em_rast_aluniteMIX, 0, NA)
+em_rast_aluniteMIX_na <- crop_n_drop(em_rast_aluniteMIX_na, my_ext)
+em_mineral_max_aluniteMIX <- terra::app(em_rast_aluniteMIX_na, which.max, na.rm = TRUE)
 
 p3b <- function(){
-  plot(em_mineral_max_alunite,
+  plot(em_mineral_max_aluniteMIX,
        type = 'classes',
        axes = FALSE,
        colNA = 'black',
        legend = FALSE,
-       levels = tools::file_path_sans_ext(names(em_rast_alunite_na)),
+       levels = tools::file_path_sans_ext(names(em_rast_aluniteMIX_na)),
        # main = glue("{my_mineral} minerals and mixtures"),
-       col = scico::scico(nlyr(em_rast_alunite_na), palette = 'imola', direction = -1))
+       col = scico::scico(nlyr(em_rast_aluniteMIX_na), palette = 'imola', direction = -1))
 }
 
 # alunite all endmembers
+all_ems_alunite <- ems_df %>% dplyr::filter(target == 'Alunite', Group == 'group.2um') %>% dplyr::pull(tetracorder_file)
 
-mixture_ems_alunite <- mixtures_df %>% dplyr::filter(Dominant_Mineral == 'Alunite', group_name == 'group.2um') %>% dplyr::pull(tetracorder_file)
-justmineral_ems_alunite <- minerals_df %>% dplyr::filter(target == 'Alunite', group_name == 'group.2um') %>% dplyr::pull(tetracorder_file)
+em_fits_aluniteALL <- glue('{tet_out_dir}/01_tetfits/group2um/{all_ems_alunite}.fit.gz')
+em_rast_aluniteALL <- terra::rast(em_fits_aluniteALL)
+em_rast_aluniteALL_na <- terra::subst(em_rast_aluniteALL, 0, NA)
+em_rast_aluniteALL_na <- crop_n_drop(em_rast_aluniteALL_na, my_ext)
+em_mineral_max_aluniteALL <- terra::app(em_rast_aluniteALL_na, which.max, na.rm = TRUE)
 
-minmix_ems_alunite <- unique(c(justmineral_ems_alunite, mixture_ems_alunite))
-
-em_fits_alunite <- glue('{tet_out_dir}/01_tetfits/group2um/{minmix_ems_alunite}.fit.gz')
-em_rast_alunite <- terra::rast(em_fits_alunite)
-em_rast_alunite_na <- terra::subst(em_rast_alunite, 0, NA)
-em_rast_alunite_na <- crop_n_drop(em_rast_alunite_na, my_ext)
-em_mineral_max_alunite <- terra::app(em_rast_alunite_na, which.max, na.rm = TRUE)
-
-p3b <- function(){
-  plot(em_mineral_max_alunite,
+p3c <- function(){
+  plot(em_mineral_max_aluniteALL,
        type = 'classes',
        axes = FALSE,
        colNA = 'black',
        legend = FALSE,
-       levels = tools::file_path_sans_ext(names(em_rast_alunite_na)),
+       levels = tools::file_path_sans_ext(names(em_rast_aluniteALL_na)),
        # main = glue("{my_mineral} minerals and mixtures"),
        col = scico::scico(nlyr(em_rast_alunite_na), palette = 'imola', direction = -1))
 }
 
 
 
-png('test20.png', width = 1000, height = 500, res = 100)
+png('test21.png', width = 1200, height = 800, res = 100)
 cowplot::plot_grid(make_rgb_aoi, NULL, p1, NULL, p2, 
-                   nrow = 1,
-                   rel_widths = c(1, -0.5, 1, -0.5, 1))
+                   p3a, NULL, p3b, NULL, p3c,
+                   nrow = 2,
+                   rel_widths = c(1, -0.5, 1, -0.5, 1,
+                                  1, -0.5, 1, -0.5, 1))
 # cowplot::plot_grid(make_rgb, NULL, p1, NULL, p1b, NULL, p2, NULL, p2b,
 #                    labels = c('a', '', 'b', '', 'c', '', 'd', '', 'e'), label_x = 0.5,
 #                    rel_widths = c(1, -0.5, 1, -0.5, 1, -0.5, 1, -0.5, 1), nrow = 1)
