@@ -29,3 +29,9 @@ my_grp2_pal2 <- c('alunite' = '#BEFDA5',
 my_grp1_pal <- c('epidote' = '#60C3D4',
                  'goethite' = '#D9D26A',
                  'hematite' = '#7E1900')
+
+scales::show_col(
+  c(scico::scico(n = 17, palette = 'lapaz', direction = 1))
+)
+
+lapaz17 <- c(scico::scico(n = 17, palette = 'lapaz', direction = 1))

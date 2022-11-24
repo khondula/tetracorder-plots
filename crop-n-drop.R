@@ -1,6 +1,6 @@
 # function to crop raster and drop layers with no values
 
-my_rast <- em_rast_na
+# my_rast <- em_rast_na
 # my_ext
 
 crop_n_drop <- function(my_rast, my_ext){

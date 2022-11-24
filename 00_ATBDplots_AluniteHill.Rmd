@@ -14,12 +14,16 @@ library(glue)
 library(dplyr)
 library(purrr)
 library(scico)
+library(sf)
 ```
 
 ```{r}
-base_dir <- '/Volumes/alab/CarbonMapper'
+base_dir <- 'Y:/'
+# base_dir <- '/Volumes/alab/CarbonMapper'
 minerals_df <- readr::read_csv('Minerals.csv')
 mixtures_df <- readr::read_csv('Mixtures.csv')
+source('color-pals.R')
+source('crop-n-drop.R')
 ```
 
 
@@ -40,14 +44,14 @@ zoom_size <- 500
 # 400
 # 1280
 #  ???
-my_x <- terra::xFromCol(orig_rast, 300)
-my_y <- terra::yFromRow(orig_rast, 1630)
-my_ext <- terra::ext(c(my_x-zoom_size, my_x+zoom_size, my_y-zoom_size, my_y+zoom_size))
+# my_x <- terra::xFromCol(orig_rast, 300)
+# my_y <- terra::yFromRow(orig_rast, 1630)
+# my_ext <- terra::ext(c(my_x-zoom_size, my_x+zoom_size, my_y-zoom_size, my_y+zoom_size))
 
 # Alunite Hill
-# my_x <- terra::xFromCol(orig_rast, 392)
-# my_y <- terra::yFromRow(orig_rast, 2700)
-# my_ext <- terra::ext(c(my_x-zoom_size, my_x+zoom_size, my_y-zoom_size, my_y+zoom_size))
+my_x <- terra::xFromCol(orig_rast, 392)
+my_y <- terra::yFromRow(orig_rast, 2700)
+my_ext <- terra::ext(c(my_x-zoom_size, my_x+zoom_size, my_y-zoom_size, my_y+zoom_size))
 
 # MIDDLE OF IMAGE
 # mid_x <- as.numeric(orig_ext[1] + (orig_ext[2]-orig_ext[1])/2)
@@ -58,26 +62,36 @@ my_ext <- terra::ext(c(my_x-zoom_size, my_x+zoom_size, my_y-zoom_size, my_y+zoom
 # RGB
 
 ```{r}
-terra::plotRGB(orig_rast, r = 54, g = 36, b = 20, 
+my_aoi_sf <- my_ext %>% st_bbox() %>% st_as_sfc() %>% st_as_sf()
+
+make_rgb <- function(){
+  terra::plotRGB(orig_rast, r = 54, g = 36, b = 20, 
                scale = 10000,
                stretch = 'lin', 
-               ext = my_ext, colNA = 'black')
+               ext = my_ext, colNA = 'black')}
 
-pdf(file = glue('{plots_dir}/rgb.pdf'))
-terra::plotRGB(orig_rast, r = 54, g = 36, b = 20, 
+# pdf(file = glue('{plots_dir}/rgb.pdf'))
+make_rgb_box <- function(){
+  terra::plotRGB(orig_rast, r = 54, g = 36, b = 20,
                scale = 10000,
-               stretch = 'lin', 
-               ext = my_ext, colNA = 'black')
+               stretch = 'lin',
+               # ext = my_ext, 
+               colNA = 'white')
+  plot(my_aoi_sf, add = TRUE, border = 'red', lwd = 2)
+  
+}
 
-dev.off()
 
-png(file = glue('{plots_dir}/rgb.png'))
-terra::plotRGB(orig_rast, r = 54, g = 36, b = 20, 
-               scale = 10000,
-               stretch = 'lin', 
-               ext = my_ext, colNA = 'black')
 
-dev.off()
+# dev.off()
+
+# png(file = glue('{plots_dir}/rgb.png'))
+# terra::plotRGB(orig_rast, r = 54, g = 36, b = 20, 
+#                scale = 10000,
+#                stretch = 'lin', 
+#                ext = my_ext, colNA = 'black')
+
+# dev.off()
 ```
 
 # Minerals and mixtures together
@@ -95,14 +109,14 @@ mineral_agg_na <- terra::subst(mineral_agg, 0, NA)
 em_mineral_max <- terra::app(mineral_agg_na, which.max, na.rm = TRUE)
 
 plot(em_mineral_max, 
-     colNA = 'black', 
+     colNA = 'white', 
     levels = names(mineral_agg),
      # ext = my_ext,
     axes = FALSE,
      type = 'class',
      main = glue('Group 2 Minerals and mixtures'),
-    col = my_grp2_pal2)
-     # col = c(scico::scico(n = 17, palette = 'vanimo', direction = -1)))
+    # col = my_grp2_pal2)
+     col = c(scico::scico(n = 17, palette = 'vanimo', direction = 1)))
 # dev.off()
 ```
 
@@ -179,6 +193,25 @@ p2 <- function(){
 ```
 
 ## Group 1
+
+### whole area
+```{r}
+mineral_agg <- glue('{tet_out_dir}/03_mineral_mix/group1um') %>% fs::dir_ls() %>% terra::rast()
+
+mineral_agg_na <- terra::subst(mineral_agg, 0, NA)
+em_mineral_max <- terra::app(mineral_agg_na, which.max, na.rm = TRUE)
+
+plot(em_mineral_max, 
+     colNA = 'white', 
+    levels = names(mineral_agg),
+     # ext = my_ext,
+    axes = FALSE,
+     type = 'class',
+     main = glue('Group 1 Minerals and mixtures'),
+    # col = my_grp2_pal2)
+     col = c(scico::scico(n = 5, palette = 'lajolla', direction = -1)))
+# dev.off()
+```
 
 ```{r}
 mineral_agg <- glue('{tet_out_dir}/03_mineral_mix/group1um') %>% fs::dir_ls() %>% terra::rast()
@@ -766,6 +799,28 @@ dev.off()
 
 
 ## Group 2
+
+## whole area
+
+```{r}
+mineral_agg2m <- glue('{tet_out_dir}/02_minerals_only/group2um') %>% fs::dir_ls() %>% terra::rast()
+mineral_agg2m <- terra::subst(mineral_agg2m, 0, NA)
+
+em_mineral_max2m <- terra::app(mineral_agg2m, which.max, na.rm = TRUE)
+
+# pdf('{plots_dir}/group2_minsmix.pdf')
+plot(em_mineral_max2m, 
+     colNA = 'white', 
+     # ext = my_ext,
+     type = 'class',
+    axes = FALSE,
+    levels = names(mineral_agg2m),
+     main = glue('Group 2 Minerals Only'),
+     col = scico::scico(n = nlyr(mineral_agg2m), palette = 'batlow', direction = -1))
+    # col = my_grp2_pal2)
+# dev.off()
+```
+
 
 ```{r}
 mineral_agg <- glue('{tet_out_dir}/02_minerals_only/group2um') %>% fs::dir_ls() %>% terra::rast()
