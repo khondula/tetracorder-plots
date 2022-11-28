@@ -18,8 +18,8 @@ library(sf)
 ```
 
 ```{r}
-base_dir <- 'Y:/'
-# base_dir <- '/Volumes/alab/CarbonMapper'
+# base_dir <- 'Y:/'
+base_dir <- '/Volumes/alab/CarbonMapper'
 minerals_df <- readr::read_csv('Minerals.csv')
 mixtures_df <- readr::read_csv('Mixtures.csv')
 ems_df <- readr::read_csv('AllEndmembers.csv')

@@ -26,12 +26,73 @@ my_grp2_pal2 <- c('alunite' = '#BEFDA5',
                   'montmorillonite'= '#6A2A5B',
                   'muscovite'= '#923E80')
 
-my_grp1_pal <- c('epidote' = '#60C3D4',
-                 'goethite' = '#D9D26A',
-                 'hematite' = '#7E1900')
+my_grp1_pal <- c('epidote' = '#B2F2FD',
+                 'goethite' = '#883E3A',
+                 'hematite' = '#E0754F',
+                 'nonotronite' = '#FFFFCC',
+                 'pyrite' = '#F1C659')
+scales::show_col(my_grp2_pal1)
 
+scales::show_col(scico::scico(5, palette = 'hawaii'))
 scales::show_col(
   c(scico::scico(n = 17, palette = 'lapaz', direction = 1))
 )
 
 lapaz17 <- c(scico::scico(n = 17, palette = 'lapaz', direction = 1))
+
+make_g1_legend <- function(){
+  par(mar = c(0,0,0,0), oma = c(0,0,0,0))
+  plot.new()
+  legend('bottomleft', 
+         title = expression(paste('Group 1', mu, 'm')),
+         title.adj = 0,
+         legend = stringr::str_to_title(names(my_grp1_pal)), 
+         fill = my_grp1_pal, 
+         bty = 'n')
+}
+
+make_g2_legend <- function(){
+  par(mar = c(0,0,0,0), oma = c(0,0,0,0))
+  plot.new()
+  legend('topleft', 
+         title = expression(paste('Group 2', mu, 'm')),
+         title.adj = 0,
+         legend = stringr::str_to_title(names(mineral_agg2)), 
+         fill = lapaz17, 
+         bty = 'n')
+}
+
+make_g12_legend <- function(){
+  par(mar = c(0,0,0,0), oma = c(0,0,0,0))
+  plot.new()
+  legend(x = 0.01, y = 0.85, 
+         cex = 1.5,
+       title = expression(paste('Group 1', mu, 'm')),
+       title.adj = 0,
+       legend = stringr::str_to_title(names(my_grp1_pal)), 
+       fill = my_grp1_pal, 
+       bty = 'n')
+legend(x = 0.01, y =0.65,
+       title = expression(paste('Group 2', mu, 'm')),
+       cex = 1.5,
+       title.adj = 0,
+       legend = stringr::str_to_title(names(mineral_agg2)), 
+       fill = lapaz17, 
+       bty = 'n')
+}
+
+
+
+png('legend2.png', width = 200, height = 800)
+cowplot::plot_grid(make_g12_legend)
+dev.off()
+
+make_legends <- cowplot::plot_grid(make_g1_legend, make_g2_legend, 
+                                   # rel_heights = 1, -0.1, 1,
+                                   ncol = 1)
+  
+png('legend.png', width = 200, height = 800)
+cowplot::plot_grid(make_g1_legend, make_g2_legend, 
+                   # rel_heights = 1, -0.1, 1,
+                   ncol = 1)
+dev.off()
