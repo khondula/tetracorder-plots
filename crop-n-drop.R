@@ -1,7 +1,7 @@
 # function to crop raster and drop layers with no values
 
-# my_rast <- em_rast_na
-# my_ext
+# my_rast <- mineral_agg2
+# my_ext <- terra::ext(mineral_agg2)
 
 crop_n_drop <- function(my_rast, my_ext){
 
