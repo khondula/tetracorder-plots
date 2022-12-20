@@ -1,0 +1,137 @@
+---
+title: "scale-comparison"
+author: "Kelly Hondula"
+date: "2022-12-20"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Side by side plots comaping aviris and tanager data
+
+```{r}
+library(terra)
+library(glue)
+library(dplyr)
+library(purrr)
+library(scico)
+library(sf)
+source('crop-n-drop.R')
+```
+
+```{r}
+base_dir <- 'Y:'
+```
+
+# RGB of alunite hill area - orig res
+
+```{r}
+cube_path <- glue('{base_dir}/software/tetracorder-essentials/example/input/ang20200712t201415_corr_v2y1_img')
+cube_id <- basename(cube_path)
+orig_rast <- terra::rast(cube_path)
+orig_ext <- terra::ext(orig_rast)
+orig_crs <- terra::crs(orig_rast)
+```
+
+```{r}
+# make_rgb <- function(){
+  # par(mar=c(0,0,0,0), oma=c(0,0,0,0))
+  terra::plotRGB(orig_rast, r = 54, g = 36, b = 20, 
+                 scale = 10000,
+                 stretch = 'lin', 
+                 mar = c(3, 2, 2,2), 
+                 oma=c(0,0,0,0),
+                 # ext = my_ext,
+                 colNA = 'white')
+  # }
+```
+
+Alunite hill area
+
+```{r}
+zoom_size <- 750
+my_x <- terra::xFromCol(orig_rast, 392)
+my_y <- terra::yFromRow(orig_rast, 2700)
+my_ext <- terra::ext(c(my_x-zoom_size, my_x+zoom_size, my_y-zoom_size, my_y+zoom_size))
+alunite_hill_sf <- my_ext %>% st_bbox() %>% st_as_sfc() %>% st_as_sf()
+```
+
+Orig resolution RGB of Alunite Hill area
+```{r}
+# make_rgb <- function(){
+  # par(mar=c(0,0,0,0), oma=c(0,0,0,0))
+  terra::plotRGB(orig_rast, r = 54, g = 36, b = 20, 
+                 scale = 10000,
+                 stretch = 'lin', 
+                 mar = c(3, 2, 2,2), 
+                 oma=c(0,0,0,0),
+                 ext = my_ext,
+                 colNA = 'white')
+# }
+```
+
+Tanager resolution
+
+```{r}
+cube30_path <- glue('{base_dir}/software/tetracorder-essentials/example30m/input/ang20200712t201415_refl_p000_ort')
+cube30_id <- basename(cube30_path)
+orig30_rast <- terra::rast(cube30_path)
+orig30_ext <- terra::ext(orig30_rast)
+orig30_crs <- terra::crs(orig30_rast)
+orig30_rast <- terra::subst(orig30_rast, 0, NA)
+```
+
+```{r}
+# make_rgb <- function(){
+  # par(mar=c(0,0,0,0), oma=c(0,0,0,0))
+  terra::plotRGB(orig30_rast, r = 38, g = 25, b = 14, 
+                 scale = 10000,
+                 stretch = 'lin',
+                 mar = c(3, 2, 2,2), 
+                 oma=c(0,0,0,0),
+                 ext = alunite_hill_sf,
+                 colNA = 'white')
+# }
+```
+
+
+Group 2 all endmembers 30m 
+
+```{r}
+
+tet_out_dir <- 'A:/Research/Researcher/Hondula/Cuprite/ang20200712t201415_refl_p000_ort'
+grp_short <- 'group2um'
+
+make_allem_rast <- function(group_name, my_ext = alunite_hill_sf){
+  em_dir <- glue('{tet_out_dir}/01_tetfits_tif/{grp_short}')
+  em_fits <- fs::dir_ls(em_dir)
+  em_rast <- terra::rast(em_fits)
+  em_rast_na <- terra::subst(em_rast, 0, NA)
+  em_rast_na_crop <- crop_n_drop(em_rast_na, terra::ext(alunite_hill_sf))
+  em_mineral_max <- terra::app(em_rast_na_crop, which.max, na.rm = TRUE)
+  out_list <- list('rast' = em_mineral_max, 
+                   'lyrs_in_img' = names(em_rast_na_crop),
+                   'all_lyrs' = basename(em_fits))
+  return(out_list)
+}
+```
+
+```{r}
+plot(out_list$rast)
+my_rast <- out_list$rast
+out_list$lyrs_in_img
+out_list$all_lyrs
+n_ems <- max(as.data.frame(freq(my_rast))[['value']])
+n_ems
+# set coltab 
+coltab_all <- data.frame(values = 1:length(out_list$lyrs_in_img),
+                         names = out_list$lyrs_in_img,
+                         cols = scico(length(out_list$lyrs_in_img), palette = 'batlow'))
+
+coltab(my_rast) <- coltab_all[, c('values', 'cols')]
+```
+
