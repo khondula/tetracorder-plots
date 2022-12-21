@@ -27,7 +27,7 @@ source('crop-n-drop.R')
 base_dir <- 'Y:'
 ```
 
-# RGB of alunite hill area - orig res
+# RGB of alunite hill area
 
 ```{r}
 cube_path <- glue('{base_dir}/software/tetracorder-essentials/example/input/ang20200712t201415_corr_v2y1_img')
@@ -98,20 +98,19 @@ orig30_rast <- terra::subst(orig30_rast, 0, NA)
 # }
 ```
 
-
-Group 2 all endmembers 30m 
+# Group 2 all endmembers 3m 
 
 ```{r}
 
-tet_out_dir <- 'A:/Research/Researcher/Hondula/Cuprite/ang20200712t201415_refl_p000_ort'
+tet_out_dir <- 'A:/Research/Researcher/Hondula/Cuprite/ang20200712t201415_corr_v2y1_img/'
 grp_short <- 'group2um'
 
-make_allem_rast <- function(group_name, my_ext = alunite_hill_sf){
+make_allem_rast <- function(group_name, my_ext){
   em_dir <- glue('{tet_out_dir}/01_tetfits_tif/{grp_short}')
   em_fits <- fs::dir_ls(em_dir)
   em_rast <- terra::rast(em_fits)
   em_rast_na <- terra::subst(em_rast, 0, NA)
-  em_rast_na_crop <- crop_n_drop(em_rast_na, terra::ext(alunite_hill_sf))
+  em_rast_na_crop <- crop_n_drop(em_rast_na, my_ext)
   em_mineral_max <- terra::app(em_rast_na_crop, which.max, na.rm = TRUE)
   out_list <- list('rast' = em_mineral_max, 
                    'lyrs_in_img' = names(em_rast_na_crop),
@@ -121,6 +120,7 @@ make_allem_rast <- function(group_name, my_ext = alunite_hill_sf){
 ```
 
 ```{r}
+out_list <- make_allem_rast("group2um", terra::ext(alunite_hill_sf))
 plot(out_list$rast)
 my_rast <- out_list$rast
 out_list$lyrs_in_img
@@ -133,5 +133,138 @@ coltab_all <- data.frame(values = 1:length(out_list$lyrs_in_img),
                          cols = scico(length(out_list$lyrs_in_img), palette = 'batlow'))
 
 coltab(my_rast) <- coltab_all[, c('values', 'cols')]
+
+plot(my_rast, axes = FALSE)
+
+freq_df <- freq(my_rast) %>% as.data.frame() %>% arrange(-count) %>% 
+  dplyr::left_join(coltab_all, by = c('value' = 'values')) %>%
+  dplyr::mutate(rez = 'avirisng')
+
+n_pixels <- terra::ncell(my_rast)
+  
+freq_df <- freq_df %>% 
+  dplyr::mutate(endmember = stringr::str_remove(names, pattern = stringr::fixed(".fit.gz"))) %>%
+  dplyr::mutate(endmember = forcats::fct_reorder(endmember, count)) %>%
+  dplyr::mutate(percent = (count/n_pixels)*100)
+
+freq_df %>% head(30) %>%
+  # dplyr::filter(count > 100) %>%
+  ggplot(aes(x = endmember, y = percent, fill = cols)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  scale_fill_identity() +
+  theme_minimal() +
+  xlab(element_blank())
+```
+
+
+```{r}
+my_pal <- coltab_all[,c('names', 'cols')]
+png('legend2.png',  width = 800, height = 800, res = 100)
+# make_legend <- function(){
+  # par(mar = c(0,3,0,0), oma = c(0,0,0,0))
+  plot.new()
+  legend('center',
+         ncol = 2,
+    # x = 0.01, y = 0.85, 
+         cex = 0.75,
+         title.adj = 0,
+         legend = stringr::str_remove(my_pal$names, pattern = stringr::fixed(".fit.gz")), 
+         fill = my_pal$cols, 
+         bty = 'n')
+dev.off()
+  # }
+```
+
+# Group 2 all endmembers 30m 
+
+```{r}
+
+tet_out_dir <- 'A:/Research/Researcher/Hondula/Cuprite/ang20200712t201415_refl_p000_ort'
+grp_short <- 'group2um'
+
+make_allem_rast <- function(group_name, my_ext){
+  em_dir <- glue('{tet_out_dir}/01_tetfits_tif/{grp_short}')
+  em_fits <- fs::dir_ls(em_dir)
+  em_rast <- terra::rast(em_fits)
+  em_rast_na <- terra::subst(em_rast, 0, NA)
+  em_rast_na_crop <- crop_n_drop(em_rast_na, my_ext)
+  em_mineral_max <- terra::app(em_rast_na_crop, which.max, na.rm = TRUE)
+  out_list <- list('rast' = em_mineral_max, 
+                   'lyrs_in_img' = names(em_rast_na_crop),
+                   'all_lyrs' = basename(em_fits))
+  return(out_list)
+}
+```
+
+```{r}
+out30_list <- make_allem_rast("group2um", terra::ext(alunite_hill_sf))
+plot(out30_list$rast)
+my30_rast <- out30_list$rast
+out30_list$lyrs_in_img
+out30_list$all_lyrs
+n_ems <- max(as.data.frame(freq(my30_rast))[['value']])
+n_ems
+
+coltab30m <- coltab_all %>% 
+  dplyr::filter(names %in% out30_list$lyrs_in_img) %>%
+  dplyr::select(-values) %>% 
+  dplyr::mutate(values = 1:n_ems)
+
+coltab(my30_rast) <- coltab30m[, c('values', 'cols')]
+
+plot(my30_rast, axes = FALSE)
+
+freq30_df <- freq(my30_rast) %>% 
+  as.data.frame() %>% arrange(-count) %>% 
+  dplyr::left_join(coltab30m, by = c('value' = 'values')) %>%
+  dplyr::mutate(rez = 'tanager')
+
+n_pixels30 <- terra::ncell(my30_rast)
+  
+freq30_df <- freq30_df %>% 
+  dplyr::mutate(endmember = stringr::str_remove(names, pattern = stringr::fixed(".fit.gz"))) %>%
+  dplyr::mutate(endmember = forcats::fct_reorder(endmember, count)) %>%
+  dplyr::mutate(percent = (count/n_pixels30)*100)
+
+freq30_df %>% head(30) %>%
+  # dplyr::filter(count > 100) %>%
+  ggplot(aes(x = endmember, y = percent, fill = cols)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  scale_fill_identity() +
+  theme_minimal() +
+  xlab(element_blank())
+```
+
+
+```{r}
+my_pal <- coltab_all[,c('names', 'cols')]
+
+# make_legend <- function(){
+  # par(mar = c(0,3,0,0), oma = c(0,0,0,0))
+  plot.new()
+  legend('center',
+         ncol = 2,
+    # x = 0.01, y = 0.85, 
+         cex = 0.75,
+         title.adj = 0,
+         legend = stringr::str_remove(my_pal$names, pattern = stringr::fixed(".fit.gz")), 
+         fill = my_pal$cols, 
+         bty = 'n')
+# }
+```
+
+
+```{r}
+freq_df %>% bind_rows(freq30_df) %>%
+  # head(30) %>%
+  dplyr::filter(percent > 0.2) %>%
+  ggplot(aes(x = endmember, y = percent, fill = cols, col = rez)) +
+  geom_bar(stat = 'identity', position = position_dodge()) +
+  coord_flip() +
+  scale_fill_identity() +
+  theme_minimal() +
+  xlab(element_blank())
 ```
 
