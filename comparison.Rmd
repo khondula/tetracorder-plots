@@ -268,3 +268,84 @@ freq_df %>% bind_rows(freq30_df) %>%
   xlab(element_blank())
 ```
 
+# Group 1 all endmembers 3m 
+
+```{r}
+
+tet_out_dir <- 'A:/Research/Researcher/Hondula/Cuprite/nonano5/'
+grp_short <- 'group1um'
+
+make_allem_rast <- function(group_name, my_ext){
+  em_dir <- glue('{tet_out_dir}/01_tetfits_tif/{grp_short}')
+  em_fits <- fs::dir_ls(em_dir, glob = '*.tif')
+  em_rast <- terra::rast(em_fits)
+  em_rast_na <- terra::subst(em_rast, 0, NA)
+  em_rast_na_crop <- crop_n_drop(em_rast_na, my_ext)
+  em_mineral_max <- terra::app(em_rast_na_crop, which.max, na.rm = TRUE)
+  out_list <- list('rast' = em_mineral_max, 
+                   'lyrs_in_img' = names(em_rast_na_crop),
+                   'all_lyrs' = basename(em_fits))
+  return(out_list)
+}
+```
+
+```{r}
+out_list <- make_allem_rast("group1um", orig_ext)
+plot(out_list$rast)
+my_rast <- out_list$rast
+out_list$lyrs_in_img
+out_list$all_lyrs
+n_ems <- max(as.data.frame(freq(my_rast))[['value']])
+n_ems
+# set coltab 
+coltab_all <- data.frame(values = 1:length(out_list$lyrs_in_img),
+                         names = out_list$lyrs_in_img,
+                         cols = scico(length(out_list$lyrs_in_img), palette = 'batlow'))
+
+coltab(my_rast) <- coltab_all[, c('values', 'cols')]
+
+pdf('test.pdf', height = 20, width = 5)
+plot(my_rast, axes = FALSE)
+dev.off()
+
+freq_df <- freq(my_rast) %>% as.data.frame() %>% arrange(-count) %>% 
+  dplyr::left_join(coltab_all, by = c('value' = 'values')) %>%
+  dplyr::mutate(rez = 'avirisng')
+
+n_pixels <- terra::ncell(my_rast)
+  
+freq_df <- freq_df %>% 
+  dplyr::mutate(endmember = stringr::str_remove(names, pattern = stringr::fixed(".fit.gz"))) %>%
+  dplyr::mutate(endmember = forcats::fct_reorder(endmember, count)) %>%
+  dplyr::mutate(percent = (count/n_pixels)*100)
+
+library(ggplot2)
+freq_df %>% 
+  head(10) %>%
+  # dplyr::filter(count > 100) %>%
+  ggplot(aes(x = endmember, y = percent, fill = cols)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  scale_fill_identity() +
+  theme_minimal() +
+  xlab(element_blank())
+```
+
+
+```{r}
+my_pal <- coltab_all[,c('names', 'cols')]
+png('legend2.png',  width = 800, height = 800, res = 100)
+# make_legend <- function(){
+  # par(mar = c(0,3,0,0), oma = c(0,0,0,0))
+  plot.new()
+  legend('center',
+         ncol = 2,
+    # x = 0.01, y = 0.85, 
+         cex = 0.75,
+         title.adj = 0,
+         legend = stringr::str_remove(my_pal$names, pattern = stringr::fixed(".fit.gz")), 
+         fill = my_pal$cols, 
+         bty = 'n')
+dev.off()
+  # }
+```
